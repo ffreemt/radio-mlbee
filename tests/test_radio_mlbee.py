@@ -1,7 +1,6 @@
 """Test radio_mlbee."""
 # pylint: disable=broad-except
-from radio_mlbee import __version__
-from radio_mlbee import radio_mlbee
+from radio_mlbee import __version__, radio_mlbee
 
 
 def test_version():

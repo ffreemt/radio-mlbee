@@ -13,6 +13,18 @@ logzero = "^1.7.0"
 set-loglevel = "^0.1.2"
 icecream = "^2.1.1"
 install = "^1.3.5"
+torch = [
+  {url = "https://download.pytorch.org/whl/cpu/torch-1.11.0%2Bcpu-cp38-cp38-linux_x86_64.whl", markers = "sys_platform == 'linux'"},
+  {url = "https://download.pytorch.org/whl/cpu/torch-1.11.0%2Bcpu-cp38-cp38-win_amd64.whl", markers = "sys_platform == 'win32'"}
+]
+sentence-transformers = "^2.2.0"
+hf-model-s-cpu = "^0.1.1"
+gradio = "^3.0.15"
+aset2pairs = "^0.1.0"
+cmat2aset = "^0.1.0-alpha.7"
+more-itertools = "^8.13.0"
+cchardet = "^2.1.7"
+typer = "^0.4.1"
 
 [tool.poe.executor]
 type = "poetry"
