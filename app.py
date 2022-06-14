@@ -99,16 +99,17 @@ def ml_fn(
         html = df.to_html()
 
     dl_csv = None
+    csv_str = None
     if download_csv:
         try:
             dl_csv = Path("aligned-blocks.csv")
-            _ = df.to_csv(index=False)
-            dl_csv.write_text(_, encoding="utf8")
+            csv_str = df.to_csv(index=False)
+            dl_csv.write_text(csv_str, encoding="utf8")
             ic("Saving df.to_csv to dl_csv...")
         except Exception as exc:
             logger.exception(exc)
 
-    return df, html, dl_csv
+    return df, html, csv_str
 
 
 mlbee = gr.Interface(
