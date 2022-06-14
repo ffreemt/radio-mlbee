@@ -1,14 +1,14 @@
 """Create entry."""
 # pylint: disbale=invalid-name
+from pathlib import Path
+
 import gradio as gr
 import pandas as pd
-
 from about_time import about_time
 from aset2pairs import aset2pairs
 from cmat2aset import cmat2aset
 from logzero import logger
 from seg_text import seg_text
-from typing import List, Optional, Union
 
 from radio_mlbee import __version__
 from radio_mlbee.gen_cmat import gen_cmat
@@ -27,8 +27,9 @@ def ml_fn(
     text2: str,
     split_to_sents: bool = False,
     preview: bool = False,
+    download_csv: bool = False,
 ) -> pd.DataFrame:
-    """Align text1 text2"""
+    """Align multilingual (50+ pairs) text1 text2."""
     text1 = str(text1)
     text2 = str(text2)
     try:
@@ -69,9 +70,15 @@ def ml_fn(
     if preview:
         html = df.to_html()
 
+    dl_csv = None
+    if download_csv:
+        filepath = Path("aligned-blocks.csv")
+        _ = df.to_csv(index=False)
+        dl_csv = filepath.write_text("utf8")
+
     # return pd.DataFrame([["", "", ""]])
     # return df.to_html()
-    return df, html
+    return df, html, dl_csv
 
 
 mlbee = gr.Interface(
@@ -81,6 +88,7 @@ mlbee = gr.Interface(
         "textarea",
         gr.Checkbox(label="Split to sents?"),
         gr.Checkbox(label="Preview?"),
+        gr.Checkbox(label="Download csv?"),
     ],
     outputs=["dataframe", "html"],
     # outputs="html",
@@ -88,8 +96,8 @@ mlbee = gr.Interface(
     description="mlbee rest api on dev ",
     examples=[
         # [text1, text2, False],
-        [text1[:len(text1) // 5], text2[:len(text2) // 5], False, False, ],
-    ]
+        [text1[: len(text1) // 5], text2[: len(text2) // 5], False, False, False],
+    ],
 )
 
 mlbee.launch(
