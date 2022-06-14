@@ -68,7 +68,7 @@ def ml_fn(
         aset = cmat2aset(cmat)
 
     _ = len(paras1) + len(paras2)
-    av = t.duration / _ * 1000
+    av = f"{t.duration / _ * 1000:.2f}"
     logger.info(" %s blocks, took %s, av. %s s/1000 blk", _, t.duration_human, av)
 
     pairs = aset2pairs(paras1, paras2, aset)
@@ -79,10 +79,13 @@ def ml_fn(
         html = df.to_html()
 
     dl_csv = None
-    if download_csv:
-        filepath = Path("aligned-blocks.csv")
-        _ = df.to_csv(index=False)
-        dl_csv = filepath.write_text(_, encoding="utf8")
+    try:
+        if download_csv:
+            dl_csv = Path("aligned-blocks.csv")
+            _ = df.to_csv(index=False)
+            dl_csv.write_text(_, encoding="utf8")
+    except Exception as exc:
+        logger.exception(exc)
 
     # return pd.DataFrame([["", "", ""]])
     # return df.to_html()
