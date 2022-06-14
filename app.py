@@ -7,6 +7,7 @@ from about_time import about_time
 from aset2pairs import aset2pairs
 from cmat2aset import cmat2aset
 from logzero import logger
+from seg_text impotr seg_text
 from typing import List, Optional, Union
 
 from radio_mlbee import __version__
@@ -25,6 +26,7 @@ def ml_fn(
     text1: str,
     text2: str,
     split_to_sents: bool = False,
+    preview: bool = False,
 ) -> pd.DataFrame:
     """Align text1 text2"""
     text1 = str(text1)
@@ -42,7 +44,15 @@ def ml_fn(
         logger.error(" praras slpitlines erros: %s, setting to ['']", exc)
         paras2 = [""]
 
-    # if split_to_sents: ...  # TODO
+    if split_to_sents:  # TODO
+        try:
+            paras1 = seg_text(paras1)
+        except Exception as exc:
+            logger.error(exc)
+        try:
+            paras2 = seg_text(paras2)
+        except Exception as exc:
+            logger.error(exc)
 
     with about_time() as t:
         cmat = gen_cmat(paras1, paras2)
@@ -55,6 +65,10 @@ def ml_fn(
     pairs = aset2pairs(paras1, paras2, aset)
     df = pd.DataFrame(pairs, columns=["text1", "text2", "llh"])
 
+    html = None
+    if preview:
+        html = df.to_html()
+
     # return pd.DataFrame([["", "", ""]])
     # return df.to_html()
     return df
@@ -66,14 +80,15 @@ mlbee = gr.Interface(
         "textarea",
         "textarea",
         gr.Checkbox(label="Split to sents?"),
+        gr.Checkbox(label="Preview?"),
     ],
-    outputs="dataframe",
+    outputs=["dataframe", "html"],
     # outputs="html",
     title=f"radio-mlbee {__version__}",
     description="mlbee rest api on dev ",
     examples=[
-        [text1, text2, False],
-        # [text1[:len(text1) // 2], text2[:len(text2) // 2], False],
+        # [text1, text2, False],
+        [text1[:len(text1) // 5], text2[:len(text2) // 5], False],
     ]
 )
 
