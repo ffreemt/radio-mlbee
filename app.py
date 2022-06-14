@@ -71,7 +71,7 @@ mlbee = gr.Interface(
     outputs="dataframe",
     # outputs="html",
     title=f"radio-mlbee {__version__}",
-    description="mlbee rest api ",
+    description="mlbee rest api on dev ",
     examples=[
         # ["a b", "cd", False],
         # [text1, text2, False],
