@@ -1,5 +1,7 @@
 """Create entry."""
 # pylint: disbale=invalid-name
+import os
+import time
 from pathlib import Path
 
 import gradio as gr
@@ -13,6 +15,12 @@ from seg_text import seg_text
 from radio_mlbee import __version__
 from radio_mlbee.gen_cmat import gen_cmat
 from radio_mlbee.utils import text1, text2
+
+os.environ["TZ"] = "Asia/Shanghai"
+try:
+    time.tzset()  # type: ignore
+except Exception as _:
+    logger.warning("time.tzset() error: %s. Probably running Windows, we let it pass.", _)
 
 
 def greet(name):
