@@ -57,6 +57,7 @@ def ml_fn(
     df = pd.DataFrame(pairs, columns=["text1", "text2", "llh"])
 
     # return pd.DataFrame([["", "", ""]])
+    # return df.to_html()
     return df
 
 
@@ -68,6 +69,7 @@ mlbee = gr.Interface(
         # gr.Checkbox(label="Split to sents?"),
     ],
     outputs="dataframe",
+    # outputs="html",
     title=f"radio-mlbee {__version__}",
     description="mlbee rest api ",
     examples=[
@@ -76,7 +78,6 @@ mlbee = gr.Interface(
         [text1, text2],
     ]
 )
-
 
 mlbee.launch(
     show_error=True,
