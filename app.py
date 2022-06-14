@@ -65,7 +65,7 @@ mlbee = gr.Interface(
     inputs=[
         "textarea",
         "textarea",
-        # gr.Checkbox(label="Split to sents?"),
+        gr.Checkbox(label="Split to sents?"),
     ],
     outputs="dataframe",
     # outputs="html",
