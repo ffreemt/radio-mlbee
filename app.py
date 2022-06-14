@@ -98,7 +98,9 @@ mlbee = gr.Interface(
         gr.Checkbox(label="Preview?"),
         gr.Checkbox(label="Download csv?"),
     ],
-    outputs=["dataframe", "html"],
+    outputs=["dataframe", "html", gr.outputs.File(
+        label="Click to download csv",
+    )],
     # outputs="html",
     title=f"radio-mlbee {__version__}",
     description="mlbee rest api on dev ",
