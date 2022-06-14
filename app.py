@@ -64,8 +64,19 @@ def ml_fn(
             logger.error(exc)
 
     with about_time() as t:
-        cmat = gen_cmat(paras1, paras2)
-        aset = cmat2aset(cmat)
+        try:
+            cmat = gen_cmat(paras1, paras2)
+        except Exception as exc:
+            logger.exception(exc)
+            logger.info(paras1)
+            logger.info(paras2)
+            logger.info("len(paras1): %s, len(paras2): %s", len(paras1), len(paras2))
+            cmat = [[]]
+        try:
+            aset = cmat2aset(cmat)
+        except Exception as exc:
+            logger.exception(exc)
+            aset = [["", "", ""]]
 
     _ = len(paras1) + len(paras2)
     av = f"{t.duration / _ * 1000:.2f}"
