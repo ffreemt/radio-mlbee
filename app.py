@@ -104,7 +104,7 @@ def ml_fn(
         try:
             dl_csv = Path("aligned-blocks.csv")
             csv_str = df.to_csv(index=False)
-            dl_csv.write_text(csv_str, encoding="utf8")
+            # dl_csv.write_text(csv_str, encoding="utf8")
             ic("Saving df.to_csv to dl_csv...")
         except Exception as exc:
             logger.exception(exc)
