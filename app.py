@@ -5,6 +5,7 @@ import time
 from pathlib import Path
 
 import gradio as gr
+import logzero
 import pandas as pd
 from about_time import about_time
 from aset2pairs import aset2pairs
@@ -12,10 +13,19 @@ from cmat2aset import cmat2aset
 from icecream import install as ic_install, ic
 from logzero import logger
 from seg_text import seg_text
+from set_loglevel import set_loglevel
 
 from radio_mlbee import __version__
 from radio_mlbee.gen_cmat import gen_cmat
 from radio_mlbee.utils import text1, text2
+
+os.environ["LOGLEVEL"] = "10"  # turn debug on
+os.environ["LOGLEVEL"] = "20"  # turn debug off
+logzero.loglevel(set_loglevel())
+if set_loglevel() <= 10:
+    logger.info(" debug is on ")
+else:
+    logger.info(" debug is off ")
 
 ic_install()
 ic.configureOutput(
@@ -44,7 +54,7 @@ def ml_fn(
     text2: str,
     split_to_sents: bool = False,
     preview: bool = False,
-    download_csv: bool = False,
+    # download_csv: bool = False,  # modi
 ) -> pd.DataFrame:
     """Align multilingual (50+ pairs) text1 text2."""
     text1 = str(text1)
@@ -108,6 +118,7 @@ def ml_fn(
     if preview:
         html = df.to_html()
 
+    _ = """  # modi
     dl_csv = None
     csv_str = None
     if download_csv:
@@ -118,8 +129,10 @@ def ml_fn(
             ic("Saving df.to_csv to dl_csv...")
         except Exception as exc:
             logger.exception(exc)
+    # """
 
-    return df, html, dl_csv
+    # return df, html, dl_csv
+    return df, html  # modi
 
 
 iface = gr.Interface(
@@ -129,23 +142,30 @@ iface = gr.Interface(
         "textarea",
         gr.Checkbox(label="Split to sents?"),
         gr.Checkbox(label="Preview?"),
-        gr.Checkbox(label="Download csv?"),
+        # gr.Checkbox(label="Download csv?"),  # modi
     ],
     outputs=[
         "dataframe",
         "html",
-        gr.outputs.File(label="Click to download csv"),
+        # gr.outputs.File(label="Click to download csv"),  # modi
     ],
     # outputs="html",
     title=f"radio-mlbee {__version__}",
     description="mlbee rest api on dev ",
     examples=[
         # [text1, text2, False],
-        [text1[: len(text1) // 5], text2[: len(text2) // 5], False, False, False],
+        # [text1[: len(text1) // 5], text2[: len(text2) // 5], False, False, False],
+        [text1, text2, False, False],  # modi
     ],
+    allow_flagging="never",
 )
 
+debug = False
+if set_loglevel() <= 10:
+    debug = True
+
 iface.launch(
-    show_error=True,
+    show_error=debug,
     enable_queue=True,
+    debug=debug,
 )
