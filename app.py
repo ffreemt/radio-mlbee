@@ -7,7 +7,7 @@ from about_time import about_time
 from aset2pairs import aset2pairs
 from cmat2aset import cmat2aset
 from logzero import logger
-from seg_text impotr seg_text
+from seg_text import seg_text
 from typing import List, Optional, Union
 
 from radio_mlbee import __version__
@@ -71,7 +71,7 @@ def ml_fn(
 
     # return pd.DataFrame([["", "", ""]])
     # return df.to_html()
-    return df
+    return df, html
 
 
 mlbee = gr.Interface(
