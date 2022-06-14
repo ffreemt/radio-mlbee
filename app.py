@@ -25,7 +25,7 @@ def greet(name):
 def ml_fn(
     text1: str,
     text2: str,
-    # split_to_sents: bool = False
+    split_to_sents: bool = False
 ) -> pd.DataFrame:
     """Align text1 text2"""
     text1 = str(text1)
@@ -75,7 +75,7 @@ mlbee = gr.Interface(
     examples=[
         # ["a b", "cd", False],
         # [text1, text2, False],
-        [text1, text2],
+        [text1[:len(text1//2], text2[:len(text2//2], False],
     ]
 )
 
