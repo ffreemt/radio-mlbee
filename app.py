@@ -82,7 +82,7 @@ def ml_fn(
     if download_csv:
         filepath = Path("aligned-blocks.csv")
         _ = df.to_csv(index=False)
-        dl_csv = filepath.write_text("utf8")
+        dl_csv = filepath.write_text(_, encoding="utf8")
 
     # return pd.DataFrame([["", "", ""]])
     # return df.to_html()
