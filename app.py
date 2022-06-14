@@ -8,7 +8,6 @@ from aset2pairs import aset2pairs
 from cmat2aset import cmat2aset
 from logzero import logger
 from typing import List, Optional, Union
-from hf_model_s_cpu import model_s
 
 from radio_mlbee import __version__
 from radio_mlbee.gen_cmat import gen_cmat
@@ -75,7 +74,7 @@ mlbee = gr.Interface(
     examples=[
         # ["a b", "cd", False],
         # [text1, text2, False],
-        [text1[:len(text1//2], text2[:len(text2//2], False],
+        [text1[:len(text1) // 2], text2[:len(text2) // 2], False],
     ]
 )
 
