@@ -88,7 +88,7 @@ mlbee = gr.Interface(
     description="mlbee rest api on dev ",
     examples=[
         # [text1, text2, False],
-        [text1[:len(text1) // 5], text2[:len(text2) // 5], False],
+        [text1[:len(text1) // 5], text2[:len(text2) // 5], False, False, ],
     ]
 )
 
