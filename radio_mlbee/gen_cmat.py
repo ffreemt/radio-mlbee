@@ -1,17 +1,24 @@
 """Gen cmat for de/en text."""
 # pylint: disable=invalid-name, too-many-branches
-
+import os
+from pathlib import Path
 from typing import List, Optional
 
 import more_itertools as mit
 import numpy as np
+import logzero
 
-# from model_pool import load_model_s
 from hf_model_s_cpu import model_s
+from joblib import Memory
 from logzero import logger
+from set_loglevel import set_loglevel
 from tqdm import tqdm
 
 from radio_mlbee.cos_matrix2 import cos_matrix2
+
+os.environ["LOGLEVEL"] = "10"  # turn debug on
+logzero.loglevel(set_loglevel())
+logger.debug(" debug is on ")
 
 try:
     model = model_s()
@@ -19,7 +26,13 @@ except Exception as _:
     logger.exception(_)
     raise
 
+cachedir = Path("~").expanduser() / "cachedir"
+memory = Memory(cachedir, verbose=0)
+if set_loglevel() <= 10:
+    memory.clear()
 
+
+@memory.cache
 def gen_cmat(text1: List[str], text2: List[str], bsize: int = 50) -> np.ndarray:
     """Gen corr matrix for texts.
 

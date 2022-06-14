@@ -87,9 +87,19 @@ def ml_fn(
             logger.exception(exc)
             aset = [["", "", ""]]
 
-    _ = len(paras1) + len(paras2)
-    av = f"{t.duration / _ * 1000:.2f}"
-    logger.info(" %s blocks, took %s, av. %s s/1000 blk", _, t.duration_human, av)
+    len1 = len(paras1)
+    len2 = len(paras2)
+    ic(len1, len2)
+
+    if not (len1 and len2):
+        _ = "At least one text is empty... nothing to do."
+        return pd.DataFrame([[_]]), None, None
+
+    av = ""
+    len12 = len1 + len2
+    if len12:
+        av = f"{t.duration / len12 * 1000:.2f}"
+    logger.info(" %s blocks, took %s, av. %s s/1000 blk", len12, t.duration_human, av)
 
     pairs = aset2pairs(paras1, paras2, aset)
     df = pd.DataFrame(pairs, columns=["text1", "text2", "llh"])
@@ -104,15 +114,15 @@ def ml_fn(
         try:
             dl_csv = Path("aligned-blocks.csv")
             csv_str = df.to_csv(index=False)
-            # dl_csv.write_text(csv_str, encoding="utf8")
+            dl_csv.write_text(csv_str, encoding="gbk")
             ic("Saving df.to_csv to dl_csv...")
         except Exception as exc:
             logger.exception(exc)
 
-    return df, html, csv_str
+    return df, html, dl_csv
 
 
-mlbee = gr.Interface(
+iface = gr.Interface(
     fn=ml_fn,
     inputs=[
         "textarea",
@@ -135,7 +145,7 @@ mlbee = gr.Interface(
     ],
 )
 
-mlbee.launch(
+iface.launch(
     show_error=True,
     enable_queue=True,
 )
