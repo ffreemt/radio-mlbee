@@ -72,8 +72,8 @@ mlbee = gr.Interface(
     title=f"radio-mlbee {__version__}",
     description="mlbee rest api on dev ",
     examples=[
-        # [text1, text2, False],
-        [text1[:len(text1) // 2], text2[:len(text2) // 2], False],
+        [text1, text2, False],
+        # [text1[:len(text1) // 2], text2[:len(text2) // 2], False],
     ]
 )
 
