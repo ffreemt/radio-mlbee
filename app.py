@@ -9,12 +9,21 @@ import pandas as pd
 from about_time import about_time
 from aset2pairs import aset2pairs
 from cmat2aset import cmat2aset
+from icecream import install as ic_install, ic
 from logzero import logger
 from seg_text import seg_text
 
 from radio_mlbee import __version__
 from radio_mlbee.gen_cmat import gen_cmat
 from radio_mlbee.utils import text1, text2
+
+ic_install()
+ic.configureOutput(
+    includeContext=True,
+    outputFunction=logger.info,
+)
+ic.enable()
+# ic.disenable()  # to turn off
 
 os.environ["TZ"] = "Asia/Shanghai"
 try:
@@ -90,16 +99,15 @@ def ml_fn(
         html = df.to_html()
 
     dl_csv = None
-    try:
-        if download_csv:
+    if download_csv:
+        try:
             dl_csv = Path("aligned-blocks.csv")
             _ = df.to_csv(index=False)
             dl_csv.write_text(_, encoding="utf8")
-    except Exception as exc:
-        logger.exception(exc)
+            ic("Saving df.to_csv to dl_csv...")
+        except Exception as exc:
+            logger.exception(exc)
 
-    # return pd.DataFrame([["", "", ""]])
-    # return df.to_html()
     return df, html, dl_csv
 
 
@@ -112,9 +120,11 @@ mlbee = gr.Interface(
         gr.Checkbox(label="Preview?"),
         gr.Checkbox(label="Download csv?"),
     ],
-    outputs=["dataframe", "html", gr.outputs.File(
-        label="Click to download csv",
-    )],
+    outputs=[
+        "dataframe",
+        "html",
+        gr.outputs.File(label="Click to download csv"),
+    ],
     # outputs="html",
     title=f"radio-mlbee {__version__}",
     description="mlbee rest api on dev ",
