@@ -1,6 +1,5 @@
 """Gen cmat for de/en text."""
 # pylint: disable=invalid-name, too-many-branches
-import os
 from pathlib import Path
 from typing import List, Optional
 
@@ -15,10 +14,6 @@ from set_loglevel import set_loglevel
 from tqdm import tqdm
 
 from radio_mlbee.cos_matrix2 import cos_matrix2
-
-os.environ["LOGLEVEL"] = "10"  # turn debug on
-logzero.loglevel(set_loglevel())
-logger.debug(" debug is on ")
 
 try:
     model = model_s()
