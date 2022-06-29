@@ -11,7 +11,7 @@ except Exception as exc:
     logger.error("rea text1 error: %s, setting to ''", exc)
     text1 = ""
 try:
-    text2 = Path(data_dir, "test-zh.txt").read_text()
+    text2 = Path(data_dir, "test-zh.txt").read_text(encoding="utf8")
 except Exception as exc:
-    logger.eror("rea text2 error: %s, setting to ''", exc)
+    logger.error("read text2 error: %s, setting to ''", exc)
     text2 = ""
