@@ -165,6 +165,8 @@ if set_loglevel() <= 10:
     debug = True
 
 iface.launch(
+    # server_name="0.0.0.0",
+    # server_port = 8889,
     show_error=debug,
     enable_queue=True,
     debug=debug,
