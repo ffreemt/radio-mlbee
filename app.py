@@ -155,7 +155,9 @@ iface = gr.Interface(
     examples=[
         # [text1, text2, False],
         # [text1[: len(text1) // 5], text2[: len(text2) // 5], False, False, False],
-        [text1, text2, False, False],  # modi
+        ["a\nb\nc", "a\nc", False, False],
+        ["test 1 \n test2", "测试 1\n我爱你\n 更多测试", False, False],
+        [text1, text2, True, True],  # modi
     ],
     allow_flagging="never",
 )
