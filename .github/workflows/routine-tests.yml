@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.8]
-        poetry-version: [1.1.2]
+        poetry-version: [1.2.1]
         # os: [ubuntu-18.04, macos-latest, windows-latest]
         # os: [ubuntu-18.04, windows-latest]
         os: [ubuntu-18.04]
@@ -23,7 +23,7 @@ jobs:
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Install packages
-        run: poetry install  # --no-dev
+        run: poetry install # --no-dev
       - name: Run flake8
         run: |
           poetry run flake8 --exit-zero
