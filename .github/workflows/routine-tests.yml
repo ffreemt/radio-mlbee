@@ -28,7 +28,7 @@ jobs:
           poetry run pip install fasttext
           poetry run pip install torch --extra-index-url https://download.pytorch.org/whl/cpu
           poetry run pip install uc-micro-py
-          poetry install # --no-dev
+          poetry install --no-cache  # --no-dev
       - name: Run flake8
         run: |
           poetry run flake8 --exit-zero
