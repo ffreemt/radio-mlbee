@@ -1359,6 +1359,7 @@ typing-extensions = "*"
 [package.source]
 type = "url"
 url = "https://download.pytorch.org/whl/cpu/torch-1.11.0%2Bcpu-cp38-cp38-win_amd64.whl"
+
 [[package]]
 name = "torchvision"
 version = "0.12.0"
@@ -1548,7 +1549,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.3"
-content-hash = "4d19a2267a01e6f89ec45ad178fe2bc0e9c4c36c07c1737be1e965480bcee049"
+content-hash = "0efd4e7e96288aa0eb62211b7a9c0f488bae779c6cb33543f96f280be643d7ea"
 
 [metadata.files]
 about-time = [
