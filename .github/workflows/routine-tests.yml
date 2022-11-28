@@ -12,7 +12,7 @@ jobs:
         poetry-version: [1.2.1]
         # os: [ubuntu-18.04, macos-latest, windows-latest]
         # os: [ubuntu-18.04, windows-latest]
-        os: [ubuntu-20.04]
+        os: [ubuntu-20.04, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
