@@ -26,6 +26,7 @@ jobs:
       - name: Install packages
         run: |
           poetry run pip install fasttext
+          poetry run pip install torch --extra-index-url https://download.pytorch.org/whl/cpu
           poetry install # --no-dev
       - name: Run flake8
         run: |
