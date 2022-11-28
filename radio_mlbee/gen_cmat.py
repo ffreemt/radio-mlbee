@@ -16,9 +16,9 @@ from tqdm import tqdm
 from radio_mlbee.cos_matrix2 import cos_matrix2
 
 try:
-    model = model_s()
+    model = model_s(alive_bar_on=False)  # default alive_bar_on=True seems to have problems with hf
 except Exception as _:
-    logger.exception(_)
+    logger.error(_)
     raise
 
 cachedir = Path("~").expanduser() / "cachedir"
