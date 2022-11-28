@@ -142,3 +142,4 @@ links/
 # .gitignore
 node_modules
 gradio_queue.db
+gradio_queue.db-journal

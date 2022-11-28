@@ -3,8 +3,9 @@ title: radio mlbee
 emoji: 💻
 colorFrom: gray
 colorTo: red
+python_version: 3.8.9
 sdk: gradio
-sdk_version: 3.1.7
+sdk_version: 3.0.15
 app_file: app.py
 pinned: false
 license: mit
