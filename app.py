@@ -39,7 +39,9 @@ os.environ["TZ"] = "Asia/Shanghai"
 try:
     time.tzset()  # type: ignore
 except Exception as _:
-    logger.warning("time.tzset() error: %s. Probably running Windows, we let it pass.", _)
+    logger.warning(
+        "time.tzset() error: %s. Probably running Windows, we let it pass.", _
+    )
 
 
 def greet(name):

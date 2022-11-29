@@ -29,6 +29,9 @@ seg-text = "^0.1.2"
 joblib = "^1.1.0"
 typing-extensions = "4.2.0"
 
+[tool.poetry.group.dev.dependencies]
+black = {version = "^22.10.0", allow-prereleases = true}
+
 [tool.poe.executor]
 type = "poetry"
 
